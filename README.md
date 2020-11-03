@@ -1,3 +1,28 @@
+# Constrained LDA for Strain Inference
+
+## Install and Test
+
+To install run `python setup.py develop`
+
+To test run `python -m pytest`
+
+## Directory Structure
+
+**constrained_lda/**: CLI and API containing all constrained LDA functions.
+**tests/**: Unit tests for code consistency and performance on toy data examples.
+**latex_documentation/**: Project proposal, milestone, and final reports.
+**hoffman_wikipedia/**: Application of standard LDA to infer topics from Wikipedia. From the original authors (Hoffman et al.).
+
+## Changelog
+
+### Setup
+
+11/2/2020: Basic project structure established but nothing is functional yet (i.e.: can't be installed with `setup.py`, etc.).
+
+---
+
+# From M. Hoffman's Implementation
+
 ONLINE VARIATIONAL BAYES FOR LATENT DIRICHLET ALLOCATION
 
 Matthew D. Hoffman

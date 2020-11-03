@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+
+\title{Inferring Microbial Strains from Genetic Variant Data Using Constrained LDA}
+\author{Lauren Mak (llm225)}
+\date{October 1, 2020}
+
+\begin{document}
+
+\maketitle
+
+\noindent{\textbf{Project Category:} Application of machine learning to a practical problem or a dataset.}
+
+\section{Motivation}
+
+Microbial communities are complex mixtures of species and subspecies (strains), each with their own phenotype and ecological functions. Strains are distinguished from each other by the set of co-occurring genetic variants within their genome. Small differences in gene content between strains can confer drug resistance or transform a commensal organism into a pathogen. As part of a larger strain inference pipeline for large-scale microbiome investigations, I plan to develop a constrained latent Dirichlet allocation algorithm that infers i) strain frequencies in multiple samples, and ii) the genetic compositions of those strains.
+
+\section{Method}
+
+\subsection{Data Pre-processing}
+
+The sequencing data from each sample can be processed into sample x variant matrices, where the cells consist of the number of times the variant is observed in the sample reads (Table 1). When a pair of variants co-occur more frequently than expected due to chance (for example, because they co-occur in the dominant strain in a sample), they are said to be ‘in linkage’. 
+
+\begin{center}
+ \begin{tabular}{|c c c c c|} 
+ \hline
+ Sample & 10-A & 10-C & 11-G & 11-T \\ 
+ \hline\hline
+ 1 & 10 & 5 & 7 & 8 \\ 
+ 2 & 0 & 15 & 7 & 8 \\ 
+ \hline
+ \end{tabular}
+\end{center}
+Table 1: Example of a sample x variant matrix. Nucleotide A at position 10 is observed 10 times and 0 times in samples 1 and 2 respectively. Nucleotide C at position 10 is observed 5 times and 10 times in samples 1 and 2 respectively. 
+
+\bigskip
+
+The sample x variant-count matrix can be decomposed into sample x topic-frequency and a topic x variant matrices. The set of learned topics thus represents taxonomic classification at the sub-species level- microbial strains. In particular, the strain x variant matrix describes the variant composition of the strain. Biologically, this enables future GWAS-like investigations to predict relationships between haplotype-resolved genotypes to observed phenotypes such as antimicrobial resistance.
+
+\subsection{Constrained Latent Dirichlet Allocation for Strain Inference}
+
+The strain composition of each sample, and the variant composition of each strain, are co-occurrent structures that can be learned from this multi-sample corpus of data by using latent Dirichlet allocation (LDA). Latent Dirichlet allocation is a generative probabilistic model that estimates a probabilistic topic model from a set of composites that are composed of individual parts. This is directly analogous to the sample and variant count data structures described above. However, the ‘strain-space’, which is the set of all possible strains that are comprised of n variants, is huge and not the optimal solution not easily found. There is additional short-range linkage data within the sequencing reads themselves. Since sequencing reads span approximately 150 base-pairs, two or more variants may co-occur within a single read, implying that at least one strain in the sample carries both of those variants. A constrained version of LDA incorporating must-link rules between variants that occur on the same read within the model may improve the accuracy of strain inference and maintain scalability to thousands of variants spanning entire strain genomes. Constrained LDA would be a semi-supervised model, since the addition of must-link rules between variants gives the basic inference process some guidance. 
+
+\section{Future Work}
+
+After adapting an existing constrained LDA algorithm for use with sequencing reads and genetic variants and validating with simulated sequencing datasets, I plan to investigate dataset properties that alter strain inference accuracy (ex. sequencing read depth, sequencing error rate, variant frequency, distribution of strain frequencies, etc.). 
+
+\end{document}
