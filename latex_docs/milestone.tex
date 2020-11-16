@@ -1,0 +1,148 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2020
+
+% ready for submission
+% \usepackage{neurips_2020}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+    % \usepackage[preprint]{neurips_2020}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2020}
+
+% to avoid loading the natbib package, add option nonatbib:
+     \usepackage[nonatbib,preprint]{neurips_2020}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\newcommand{\code}[1]{\texttt{#1}}
+\usepackage[sorting=none]{biblatex}
+\addbibresource{refs.bib}
+
+\title{Inferring Microbial Strains from Genetic Variant Data Using Constrained LDA}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{
+  Lauren Mak \\
+  Tri-institutional Program for Computational Biology and Medicine\\
+  Weill Cornell Graduate School\\
+  New York City, NY 10021 \\
+  \texttt{lam4003@med.cornell.edu} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Microbial communities are complex mixtures of species and subspecies (strains), each with their own phenotype and ecological functions. Strains are distinguished from each other by the set of co-occurring genetic variants within their genome. Small differences in gene content between strains can confer drug resistance or transform a commensal organism into a pathogen. As part of a larger strain inference pipeline for large-scale microbiome investigations, I am developing a constrained latent Dirichlet allocation algorithm that infers i) strain frequencies in multiple samples, and ii) the genetic compositions of those strains.
+\end{abstract}
+
+\section{Motivation} \label{Motivation}
+
+\subsection{Strain-level Analyses in Clinical Pathogenomics}
+
+There has been increased interest in strain inference algorithms to study the pathogen epidemics at a granular sub-species level \cite{Sashittal2020}. Due to their mutation rates, many pathogens establish multi-strain infections within a patient. Pathogens genetic diversity is correlated with differential clinical outcomes such as severity, mortality and morbidity. Minor genetic variants carried by a few strain particles may impact patterns of virulence and person-to-person transmission efficiency \cite{DeMendoza2004}. To improve our understanding of pathogenomics, it is critical to identify viral strains that are unique to or shared by different patients from raw, fragmented sequencing information. This enables future GWAS-like investigations to predict relationships between strain-resolved genotypes to observed phenotypes such as virulence patterns, transmission efficiency, and antimicrobial resistance. 
+
+% For example, the presence of many distinct strains of HIV within a patient were associated with higher viral loads and faster CD4+ T cell declines (CITE Leda). Some methods of reconstructing transmission histories harness multiple samples per patient and multi-strain infections to improve the accuracy of transmission predictions (CITE De Maio et al., 2018; Sashittal and El-Kebir, 2020).
+
+\subsection{Constrained Latent Dirichlet Allocation for Strain Inference}
+
+The strain composition of each sample, and the variant composition of each strain, are co-occurrent structures that can be learned from this multi-sample corpus of data by using latent Dirichlet allocation (LDA). Latent Dirichlet allocation is a generative probabilistic model that estimates a probabilistic topic model from a set of composites that are composed of individual parts \cite{Blei2003}. This is directly analogous to the sample and variant count data structures described above. However, the ‘strain-space’, which is the set of all possible strains that are comprised of hundreds variants, is huge and not the optimal solution not easily found. There is additional short-range linkage data within the sequencing reads themselves. Since sequencing reads span approximately 150 base-pairs, two or more variants may co-occur within a single read, implying that at least one strain in the sample carries both of those variants. A semi-supervised constrained version of LDA incorporating must-link rules between variants that occur on the same read within the model may improve the accuracy of strain inference and maintain scalability to thousands of variants spanning entire strain genomes \cite{Zhai2011}. 
+
+% Constrained LDA is be a semi-supervised model, since the addition of must-link rules between variants gives the basic inference process some guidance. 
+
+\section{Methods} \label{Methods}
+
+\subsection{Strain Inference as Non-negative Matrix Factorization} \label{NNMF}
+
+The strain inference problem can be formulated on the classic non-negative matrix factorization problem \cite{Paatero1994}. The sequencing data from each sample can be represent as a matrix of the counts of each genetic variant in each sample (Table~\ref{table_1}). When a pair of variants co-occur more frequently than expected due to chance (for example, because they co-occur in the dominant strain in a sample), they are said to be ‘in linkage’. 
+
+\begin{table}[htp]
+  \caption{Example of an $n \times m$ matrix $F \in [0,1]$ of $m$ genetic variants across $n$ samples. Nucleotide A at position 10 is observed 10 times and 0 times in samples 1 and 2 respectively. Nucleotide C at position 10 is observed 5 times and 10 times in samples 1 and 2 respectively. } \label{table_1}
+  \centering
+  \begin{tabular}{|l l l l l|} 
+    \toprule
+    Sample & 10-A & 10-C & 11-G & 11-T \\ 
+    \midrule
+    1 & 10 & 5 & 7 & 8 \\ 
+    2 & 0 & 15 & 7 & 8 \\ 
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+To jointly infer the strain composition across the samples, the matrix can be decomposed into two components: i) a matrix of the strain composition of each sample and ii) a matrix of the genetic composition of each strain. The input $n \times m$ matrix $F \in [0,1]$ of $m$ genetic variants across $n$ samples can be decomposed into a sample-by-strain $n \times k$ mixture matrix $U \in [0,1]$ and a strain-by-genotype $k \times m$ mixture matrix $B \in [0,1]$ such that $F \approx U \times B$ and the row-sums of matrix $U$ (sum of strain frequencies in each sample) are 1. 
+\subsection{Latent Dirichlet Allocation} \label{LDA}
+
+The backbone of my implementation is Hoffman's LDA, which relies on a variational Bayes method by approximating each of the strain-frequency and genotype-composition distributions as Dirichlet distributions based on parameters $\phi$, $\gamma$, and $\lambda$ that can be easily drawn from gamma distributions \cite{Hoffman2010}. An expectation-maximization (EM) algorithm alternately estimates $\phi$ and $\gamma$ using the current version of $\lambda$, and then updates $\lambda$ based on $\phi$. It was chosen for its structural straightforwardness and lack of external dependencies, unlike the scikit-learn version. 
+
+%The code responsible for the log-likelihood calculation is clearly implemented and the data-structures representing the input 2D array and output arrays are easy to work with. 
+
+\subsection{Sequencing-Read Likelihood Constraint} \label{Constraint}
+
+My integration of data-driven must-link rules is inspired by \cite{Zhai2011}. The difference is that the Zhai implementation imposes rules between words (genetic variants) and topics (strains), whereas mine imposes rules between words (genetic variants) since that information is provided by the sequencing reads themselves. A must-link rule between genetic variants $i$ and $j$ indicates that at least one strain generated carrying both $i$ and $j$. The set of must-link rules can be integrated into the log-likelihood calculation of the EM algorithm to affect the speed of conversion and promote the sampling of rule-following strain genotypes. The strain $k$ raw score $raw_k = cd + w(1 - d)$, where $c $ is the number of must-link rules that strain $k$ correctly follows, $w$ is the number of must-link rules that strain $k$ breaks, and $d$ is the must-link weight term. As with the Zhai implementation, the values in the $k$-length array of $raw_k$ are normalized by subtracting the minimum score from each $raw_k$ and dividing all scores by $max\_raw - min\_raw$. Since the constraints are not guaranteed to be correct (ex. presence of technical errors in sequencing reads), the normalized $raw_k$ is further adjusted by a relaxation factor $r$. The final score of strain $k$ is 
+
+\[ score_k = \frac{(cd + w(1 - d)) - min\_score_k}{max\_score - min\_score} \times r - (1 - r) \]
+ 
+\subsection{Simulating Testing Data} \label{Simulate}
+
+The design of the basic sequencing data simulation pipeline is as follows. The program \code{ms} will be used to generate strains, which are encoded as strings of $m$ genetic variants of either 0 or 1 \cite{Hudson2002}. While variant sites are normally polymorphic (more than two alleles), this is an appropriate simplification for simulated data. From there, the $k$ strains are partitioned between $n$ samples and the matrix $F \in [0,1]$ of $m$ genetic variants across $n$ samples is generated by counting the number of times genetic variant $i$ occurs in all strains in sample $n$. This is the input for the LDA algorithm. Simultaneously, the gold-standard matrices sample-by-strain $n \times k$ mixture matrix $U \in [0,1]$ and a strain-by-genotype $k \times m$ mixture matrix $B \in [0,1]$ are generated to compare the LDA output against. 
+
+\section{Preliminary Experiments} \label{Results}
+
+I re-implemented Hoffamn's LDA with i) further modularized and easily tested functions, ii) the removal of text-parsing steps, which should be encapsulated in a separate function entirely, and iii) organized EM parameters into a separate config file (\code{constrained\_lda/lda.cfg}). I designed the mathematical definitions for the must-link rules, but have not yet added code to i) create, ii) load into the LDA, or iii) process the rules within the LDA. All code and tests can be found on my
+\href{https://github.com/lauren-mak/constrained_lda}{Github}. 
+
+\subsection{The Toy Dataset}
+
+The following is the toy dataset matrix $F$, which consists of three samples and four genetic variants. The gold-standard strain-by-genotype matrix $B$ is identical to $F$. \\
+1,0,1,0 \\
+1,0,0,1 \\
+0,1,1,0 \\
+The following is the toy dataset matrix $U$, which consists of three samples and the frequency of the three strains in those samples. \\
+1,0,0 \\
+0,1,0 \\
+0,0,1
+
+\subsection{Testing the Basic LDA}
+
+See the standard output in \code{tests/test.out}. The LDA-generated strain-by-genotype matrix $B$ is \\
+1.05267,0.00000,0.00000,0.20346 \\
+0.00030,0.25872,8.14204,0.00000 \\
+0.00000,0.00000,0.00000,0.00000
+
+While the first and second rows of LDA-generated $B$ is similar to the second and third rows of the gold standard $B$, the number of some genetic variants per strain are greater than 1. This is not desirable as all variants should only occur once per strain. To solve this, within the LDA itself, the $\lambda$-based Dirichlet distribution needs to be sampled from such that only 0 and 1 are drawn. Alternatively, a different distribution needs to be used as the basis for the topic-by-genetic-variant matrix. 
+
+The LDA-generated matrix $U$ is \\
+1.10000,1.10000,0.10000 \\
+2.10000,0.10000,0.10000 \\
+0.10000,2.10000,0.10000
+
+Because the LDA-generated $B$ is by one whole strain, the LDA-generated $U$ is highly inaccurate, as well as unscaled, which needs to be fixed.
+
+% \section{Acknowledgements}
+
+\section{Future Work}
+
+The immediate next steps are to fix the above two issues around generating genomics-compatible output matrices. The next step is to implement modules supporting the use of must-link constraints in the LDA log-likelihood calculation, and make termination dependent on a log-likelihood threshold as well as iterations. To further validate the utility of constrained LDA, I will also implement a sequencing data simulation pipeline, as well as an evaluation program based on the Matthews correlation coefficient and Jensen-Shannon divergence to compare the LDA output to the gold-standard sample-by-strain and strain-by-genotype matrices. The eventual goal is to be able to iterate through a few hyperparameter sets with and without the constraints, and characterize the conditions that generate accurate strain inferences. 
+
+\printbibliography
+
+\end{document}

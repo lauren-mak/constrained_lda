@@ -206,57 +206,6 @@ class OnlineLDA:
 
         return self.do_e_step(wordids, wordcts)
     
-#         batchD = len(docs)
-
-#         # Initialize the variational distribution q(theta|gamma) for
-#         # the mini-batch
-#         gamma = 1*n.random.gamma(100., 1./100., (batchD, self._K))
-#         Elogtheta = dirichlet_expectation(gamma)
-#         expElogtheta = n.exp(Elogtheta)
-
-#         sstats = n.zeros(self._lambda.shape)
-#         # Now, for each document d update that document's gamma and phi
-#         it = 0
-#         meanchange = 0
-#         for d in range(0, batchD):
-#             # These are mostly just shorthand (but might help cache locality)
-#             ids = wordids[d]
-#             cts = wordcts[d]
-#             gammad = gamma[d, :]
-#             Elogthetad = Elogtheta[d, :]
-#             expElogthetad = expElogtheta[d, :]
-#             expElogbetad = self._expElogbeta[:, ids]
-#             # The optimal phi_{dwk} is proportional to 
-#             # expElogthetad_k * expElogbetad_w. phinorm is the normalizer.
-#             phinorm = n.dot(expElogthetad, expElogbetad) + 1e-100
-#             # Iterate between gamma and phi until convergence
-#             for it in range(0, 100):
-#                 lastgamma = gammad
-#                 # We represent phi implicitly to save memory and time.
-#                 # Substituting the value of the optimal phi back into
-#                 # the update for gamma gives this update. Cf. Lee&Seung 2001.
-#                 gammad = self._alpha + expElogthetad * \
-#                     n.dot(cts / phinorm, expElogbetad.T)
-#                 Elogthetad = dirichlet_expectation(gammad)
-#                 expElogthetad = n.exp(Elogthetad)
-#                 phinorm = n.dot(expElogthetad, expElogbetad) + 1e-100
-#                 # If gamma hasn't changed much, we're done.
-#                 meanchange = n.mean(abs(gammad - lastgamma))
-#                 if (meanchange < meanchangethresh):
-#                     break
-#             gamma[d, :] = gammad
-#             # Contribution of document d to the expected sufficient
-#             # statistics for the M step.
-#             sstats[:, ids] += n.outer(expElogthetad.T, cts/phinorm)
-
-#         # This step finishes computing the sufficient statistics for the
-#         # M step, so that
-#         # sstats[k, w] = \sum_d n_{dw} * phi_{dwk} 
-#         # = \sum_d n_{dw} * exp{Elogtheta_{dk} + Elogbeta_{kw}} / phinorm_{dw}.
-#         sstats = sstats * self._expElogbeta
-
-#         return((gamma, sstats))
-
     def update_lambda_docs(self, docs):
         """
         First does an E step on the mini-batch given in wordids and
@@ -367,12 +316,6 @@ class OnlineLDA:
                 tmax = max(temp)
                 phinorm[i] = n.log(sum(n.exp(temp - tmax))) + tmax
             score += n.sum(cts * phinorm)
-#             oldphinorm = phinorm
-#             phinorm = n.dot(expElogtheta[d, :], self._expElogbeta[:, ids])
-#             print oldphinorm
-#             print n.log(phinorm)
-#             score += n.sum(cts * n.log(phinorm))
-
         # E[log p(theta | alpha) - log q(theta | gamma)]
         score += n.sum((self._alpha - gamma)*Elogtheta)
         score += n.sum(gammaln(gamma) - gammaln(self._alpha))
@@ -425,12 +368,6 @@ class OnlineLDA:
                 tmax = max(temp)
                 phinorm[i] = n.log(sum(n.exp(temp - tmax))) + tmax
             score += n.sum(cts * phinorm)
-#             oldphinorm = phinorm
-#             phinorm = n.dot(expElogtheta[d, :], self._expElogbeta[:, ids])
-#             print oldphinorm
-#             print n.log(phinorm)
-#             score += n.sum(cts * n.log(phinorm))
-
         # E[log p(theta | alpha) - log q(theta | gamma)]
         score += n.sum((self._alpha - gamma)*Elogtheta)
         score += n.sum(gammaln(gamma) - gammaln(self._alpha))
@@ -448,6 +385,8 @@ class OnlineLDA:
         return(score)
 
 def main():
+    # Input files and parameters
+    # TODO Convert into click() program for ease of use
     infile = sys.argv[1]
     K = int(sys.argv[2])
     alpha = float(sys.argv[3])
@@ -468,8 +407,6 @@ def main():
         model.update_lambda(wordids, wordcts)
         n.savetxt('/tmp/lambda%d' % i, model._lambda.T)
     
-#     infile = open(infile)
-#     corpus.read_stream_data(infile, 100000)
 
 if __name__ == '__main__':
     main()
