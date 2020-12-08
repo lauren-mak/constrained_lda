@@ -16,15 +16,21 @@ python cli.py constrained_lda ../tests/test.cfg --debug > ../tests/test.out 2>&1
 ## Directory Structure
 
 **constrained_lda/**: CLI and API containing all constrained LDA functions.
+
 **tests/**: Toy datasets for code validation.
+
 **latex_docs/**: Project proposal, milestone, and final reports.
+
 **hoffman_deprecated/**: Application of standard LDA to infer topics from Wikipedia. From the original authors (Hoffman et al.).
 
 ## Changelog
 
-### Setup
+### Basic Implementation
 
 11/15/2020: Functional version of basic LDA adapted from Hoffman et al. with toy dataset validation. 
+
+### Setup
+
 11/2/2020: Basic project structure established but nothing is functional yet (i.e.: can't be installed with `setup.py`, etc.).
 
 ---

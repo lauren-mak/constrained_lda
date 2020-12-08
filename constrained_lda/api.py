@@ -25,8 +25,8 @@ class OnlineLDA:
     def __init__(self, doc_word_file, num_topics, alpha, eta, kappa, gp_iters, gp_thresh, debug):
         """
         Arguments:
-        alpha: Hyperparameter for prior on weight vectors theta
-        eta: Hyperparameter for prior on topics beta
+        alpha: Hyperparameter for prior on weight vectors theta (document-topic distribution)
+        eta: Hyperparameter for prior on topics beta (topic-word distribution)
         kappa: Learning rate: exponential decay rate---should be between (0.5, 1.0] to guarantee asymptotic convergence.
         """
         self.doc_word_df = np.genfromtxt(doc_word_file, delimiter = ',') # np.2darray of self.num_docs x self.num_topics
@@ -98,7 +98,7 @@ class OnlineLDA:
         """
         M step: Update values of lambda and Elogbeta based on the summary statistics. 
         """
-        self._lambda = self._lambda * (self._eta + self.num_docs * sstats / self.num_words)
+        self._lambda = self._lambda + self._eta + self.num_docs * sstats / self.num_words
         self._Elogbeta = dirichlet_expectation(self._lambda)
         self._expElogbeta = np.exp(self._Elogbeta)
         logger('Lambda ' + str(self._lambda), self.debug)
