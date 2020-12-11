@@ -1,0 +1,322 @@
+15:47:33: Initializing constrained LDA model
+15:47:33: Doc_word_df [[1. 0. 1. 0.]
+ [1. 0. 0. 1.]
+ [0. 1. 1. 0.]]
+15:47:33: Lambda [[0 0 0 1]
+ [1 1 0 0]
+ [0 0 0 1]]
+15:47:33: Elogbeta [[-inf -inf -inf   0.]
+ [ -1.  -1. -inf -inf]
+ [-inf -inf -inf   0.]]
+15:47:33: expElogbeta [[0.         0.         0.         1.        ]
+ [0.36787944 0.36787944 0.         0.        ]
+ [0.         0.         0.         1.        ]]
+15:47:33: Iteration 0
+15:47:33: Document 0
+15:47:33: Initial gamma 0 [0.94981269 1.06345718 1.02653014]
+15:47:33: 0 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 0 0.6042952168645696
+15:47:33: 1 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 0 0.0
+15:47:33: Document 1
+15:47:33: Initial gamma 1 [1.15385626 1.12167754 0.97449533]
+15:47:33: 0 Gamma 1 [0.66729405 1.1        0.53270595]
+15:47:33: 0 deltaGamma 1 0.31667637820967026
+15:47:33: 1 Gamma 1 [0.72111094 1.1        0.47888906]
+15:47:33: 1 deltaGamma 1 0.03587792424985795
+15:47:33: 2 Gamma 1 [0.81300203 1.1        0.38699797]
+15:47:33: 2 deltaGamma 1 0.06126073163124749
+15:47:33: 3 Gamma 1 [0.94855518 1.1        0.25144482]
+15:47:33: 3 deltaGamma 1 0.09036876673468147
+15:47:33: 4 Gamma 1 [1.07173793 1.1        0.12826207]
+15:47:33: 4 deltaGamma 1 0.08212182881387582
+15:47:33: 5 Gamma 1 [1.09955433 1.1        0.10044567]
+15:47:33: 5 deltaGamma 1 0.01854426820427015
+15:47:33: 6 Gamma 1 [1.09995248 1.1        0.10004752]
+15:47:33: 6 deltaGamma 1 0.0002654343068811821
+15:47:33: Document 2
+15:47:33: Initial gamma 2 [0.93379875 1.01870036 0.87780927]
+15:47:33: 0 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 2 0.5643025544338558
+15:47:33: 1 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 2 0.0
+15:47:33: Sufficient Stats [[0.00000000e+00 0.00000000e+00 0.00000000e+00 9.99954380e-01]
+ [2.00000000e+00 1.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00 4.56202046e-05]]
+15:47:33: Normalized Gamma [[0.07692308 0.84615385 0.07692308]
+ [0.47824021 0.47826087 0.04349892]
+ [0.07692308 0.84615385 0.07692308]]
+15:47:33: Lambda before maximization [[0 0 0 1]
+ [1 1 0 0]
+ [0 0 0 1]]
+15:47:33: Lambda after maximization [[0.01       0.01       0.01       1.75996578]
+ [2.51       1.76       0.01       0.01      ]
+ [0.01       0.01       0.01       1.01003422]]
+15:47:33: Lambda after rounding [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Elogbeta [[-inf -inf -inf   0.]
+ [ -1.  -1. -inf -inf]
+ [-inf -inf -inf   0.]]
+15:47:33: expElogbeta [[0.         0.         0.         1.        ]
+ [0.36787944 0.36787944 0.         0.        ]
+ [0.         0.         0.         1.        ]]
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:130: RuntimeWarning: invalid value encountered in subtract
+  phinorm[i] = np.log(sum(np.exp(temp - tmax))) + tmax # Phi for each word in document d
+15:47:33: E[log p(theta | alpha) - log q(theta | gamma)] = nan
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:141: RuntimeWarning: invalid value encountered in double_scalars
+  topic_score = topic_score + np.sum(gammaln(self._lambda) - gammaln(self._eta))
+15:47:33: E[log p(beta | eta) - log q (beta | lambda)] = nan
+15:47:33: Logl: nan
+15:47:33: Iteration 1
+15:47:33: Document 0
+15:47:33: Initial gamma 0 [1.04950776 0.97990256 1.18587626]
+15:47:33: 0 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 0 0.7184938196384127
+15:47:33: 1 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 0 7.401486830834377e-17
+15:47:33: Document 1
+15:47:33: Initial gamma 1 [1.25411266 0.98440865 0.88448733]
+15:47:33: 0 Gamma 1 [0.73705428 1.1        0.46294572]
+15:47:33: 0 deltaGamma 1 0.35139711427493253
+15:47:33: 1 Gamma 1 [0.83877111 1.1        0.36122889]
+15:47:33: 1 deltaGamma 1 0.06781122141109767
+15:47:33: 2 Gamma 1 [0.97986853 1.1        0.22013147]
+15:47:33: 2 deltaGamma 1 0.09406494285103247
+15:47:33: 3 Gamma 1 [1.08516374 1.1        0.11483626]
+15:47:33: 3 deltaGamma 1 0.07019681065871779
+15:47:33: 4 Gamma 1 [1.0998276 1.1       0.1001724]
+15:47:33: 4 deltaGamma 1 0.009775904023927015
+15:47:33: 5 Gamma 1 [1.09995379 1.1        0.10004621]
+15:47:33: 5 deltaGamma 1 8.412797981273885e-05
+15:47:33: Document 2
+15:47:33: Initial gamma 2 [0.83144823 1.12586462 0.8396913 ]
+15:47:33: 0 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 2 0.4990013826299655
+15:47:33: 1 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 2 0.0
+15:47:33: Sufficient Stats [[0.00000000e+00 0.00000000e+00 0.00000000e+00 9.99954386e-01]
+ [2.00000000e+00 1.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00 4.56140665e-05]]
+15:47:33: Normalized Gamma [[0.07692308 0.84615385 0.07692308]
+ [0.47824078 0.47826087 0.04349835]
+ [0.07692308 0.84615385 0.07692308]]
+15:47:33: Lambda before maximization [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda after maximization [[0.01       0.01       0.01       1.75996579]
+ [2.51       1.76       0.01       0.01      ]
+ [0.01       0.01       0.01       1.01003421]]
+15:47:33: Lambda after rounding [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Elogbeta [[-inf -inf -inf   0.]
+ [ -1.  -1. -inf -inf]
+ [-inf -inf -inf   0.]]
+15:47:33: expElogbeta [[0.         0.         0.         1.        ]
+ [0.36787944 0.36787944 0.         0.        ]
+ [0.         0.         0.         1.        ]]
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:130: RuntimeWarning: invalid value encountered in subtract
+  phinorm[i] = np.log(sum(np.exp(temp - tmax))) + tmax # Phi for each word in document d
+15:47:33: E[log p(theta | alpha) - log q(theta | gamma)] = nan
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:141: RuntimeWarning: invalid value encountered in double_scalars
+  topic_score = topic_score + np.sum(gammaln(self._lambda) - gammaln(self._eta))
+15:47:33: E[log p(beta | eta) - log q (beta | lambda)] = nan
+15:47:33: Logl: nan
+15:47:33: Iteration 2
+15:47:33: Document 0
+15:47:33: Initial gamma 0 [0.97235091 0.92330704 0.89392225]
+15:47:33: 0 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 0 0.6143220404897852
+15:47:33: 1 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 0 0.0
+15:47:33: Document 1
+15:47:33: Initial gamma 1 [0.84005601 1.06112592 0.86623666]
+15:47:33: 0 Gamma 1 [0.58636096 1.1        0.61363904]
+15:47:33: 0 deltaGamma 1 0.18172225160345498
+15:47:33: 1 Gamma 1 [0.5752131 1.1       0.6247869]
+15:47:33: 1 deltaGamma 1 0.007431906957738876
+15:47:33: 2 Gamma 1 [0.55499667 1.1        0.64500333]
+15:47:33: 2 deltaGamma 1 0.013477618733261107
+15:47:33: 3 Gamma 1 [0.51854933 1.1        0.68145067]
+15:47:33: 3 deltaGamma 1 0.02429822716519303
+15:47:33: 4 Gamma 1 [0.45410592 1.1        0.74589408]
+15:47:33: 4 deltaGamma 1 0.04296226890043967
+15:47:33: 5 Gamma 1 [0.34729435 1.1        0.85270565]
+15:47:33: 5 deltaGamma 1 0.07120771598418067
+15:47:33: 6 Gamma 1 [0.20464614 1.1        0.99535386]
+15:47:33: 6 deltaGamma 1 0.09509880566537633
+15:47:33: 7 Gamma 1 [0.11010302 1.1        1.08989698]
+15:47:33: 7 deltaGamma 1 0.06302874850784823
+15:47:33: 8 Gamma 1 [0.10011697 1.1        1.09988303]
+15:47:33: 8 deltaGamma 1 0.0066573632207317145
+15:47:33: 9 Gamma 1 [0.10004595 1.1        1.09995405]
+15:47:33: 9 deltaGamma 1 4.735161137593702e-05
+15:47:33: Document 2
+15:47:33: Initial gamma 2 [1.11281429 1.08382943 0.84756933]
+15:47:33: 0 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 2 0.5921847331322184
+15:47:33: 1 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 2 0.0
+15:47:33: Sufficient Stats [[0.00000000e+00 0.00000000e+00 0.00000000e+00 4.56128385e-05]
+ [2.00000000e+00 1.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00 9.99954387e-01]]
+15:47:33: Normalized Gamma [[0.07692308 0.84615385 0.07692308]
+ [0.04349824 0.47826087 0.47824089]
+ [0.07692308 0.84615385 0.07692308]]
+15:47:33: Lambda before maximization [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda after maximization [[0.01       0.01       0.01       1.01003421]
+ [2.51       1.76       0.01       0.01      ]
+ [0.01       0.01       0.01       1.75996579]]
+15:47:33: Lambda after rounding [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Elogbeta [[-inf -inf -inf   0.]
+ [ -1.  -1. -inf -inf]
+ [-inf -inf -inf   0.]]
+15:47:33: expElogbeta [[0.         0.         0.         1.        ]
+ [0.36787944 0.36787944 0.         0.        ]
+ [0.         0.         0.         1.        ]]
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:130: RuntimeWarning: invalid value encountered in subtract
+  phinorm[i] = np.log(sum(np.exp(temp - tmax))) + tmax # Phi for each word in document d
+15:47:33: E[log p(theta | alpha) - log q(theta | gamma)] = nan
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:141: RuntimeWarning: invalid value encountered in double_scalars
+  topic_score = topic_score + np.sum(gammaln(self._lambda) - gammaln(self._eta))
+15:47:33: E[log p(beta | eta) - log q (beta | lambda)] = nan
+15:47:33: Logl: nan
+15:47:33: Iteration 3
+15:47:33: Document 0
+15:47:33: Initial gamma 0 [1.08851144 1.04578274 1.01927693]
+15:47:33: 0 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 0 0.6540018755778051
+15:47:33: 1 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 0 0.0
+15:47:33: Document 1
+15:47:33: Initial gamma 1 [1.07086064 0.78511506 1.00604718]
+15:47:33: 0 Gamma 1 [0.62522418 1.1        0.57477582]
+15:47:33: 0 deltaGamma 1 0.3972642530076144
+15:47:33: 1 Gamma 1 [0.64579501 1.1        0.55420499]
+15:47:33: 1 deltaGamma 1 0.01371388841032802
+15:47:33: 2 Gamma 1 [0.68287016 1.1        0.51712984]
+15:47:33: 2 deltaGamma 1 0.02471676371690934
+15:47:33: 3 Gamma 1 [0.74835838 1.1        0.45164162]
+15:47:33: 3 deltaGamma 1 0.043658814279442994
+15:47:33: 4 Gamma 1 [0.85654245 1.1        0.34345755]
+15:47:33: 4 deltaGamma 1 0.07212271699669272
+15:47:33: 5 Gamma 1 [0.99943187 1.1        0.20056813]
+15:47:33: 5 deltaGamma 1 0.09525961125582154
+15:47:33: 6 Gamma 1 [1.09095096 1.1        0.10904904]
+15:47:33: 6 deltaGamma 1 0.061012727576523484
+15:47:33: 7 Gamma 1 [1.09989318 1.1        0.10010682]
+15:47:33: 7 deltaGamma 1 0.005961478397041947
+15:47:33: 8 Gamma 1 [1.0999541 1.1       0.1000459]
+15:47:33: 8 deltaGamma 1 4.061500417079644e-05
+15:47:33: Document 2
+15:47:33: Initial gamma 2 [0.91526618 1.15535931 0.86813806]
+15:47:33: 0 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 2 0.5462545143703572
+15:47:33: 1 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 2 0.0
+15:47:33: Sufficient Stats [[0.00000000e+00 0.00000000e+00 0.00000000e+00 9.99954387e-01]
+ [2.00000000e+00 1.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00 4.56126142e-05]]
+15:47:33: Normalized Gamma [[0.07692308 0.84615385 0.07692308]
+ [0.47824091 0.47826087 0.04349822]
+ [0.07692308 0.84615385 0.07692308]]
+15:47:33: Lambda before maximization [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda after maximization [[0.01       0.01       0.01       1.75996579]
+ [2.51       1.76       0.01       0.01      ]
+ [0.01       0.01       0.01       1.01003421]]
+15:47:33: Lambda after rounding [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Elogbeta [[-inf -inf -inf   0.]
+ [ -1.  -1. -inf -inf]
+ [-inf -inf -inf   0.]]
+15:47:33: expElogbeta [[0.         0.         0.         1.        ]
+ [0.36787944 0.36787944 0.         0.        ]
+ [0.         0.         0.         1.        ]]
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:130: RuntimeWarning: invalid value encountered in subtract
+  phinorm[i] = np.log(sum(np.exp(temp - tmax))) + tmax # Phi for each word in document d
+15:47:33: E[log p(theta | alpha) - log q(theta | gamma)] = nan
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:141: RuntimeWarning: invalid value encountered in double_scalars
+  topic_score = topic_score + np.sum(gammaln(self._lambda) - gammaln(self._eta))
+15:47:33: E[log p(beta | eta) - log q (beta | lambda)] = nan
+15:47:33: Logl: nan
+15:47:33: Iteration 4
+15:47:33: Document 0
+15:47:33: Initial gamma 0 [0.9799385  0.96278711 0.9962987 ]
+15:47:33: 0 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 0 0.637816696196744
+15:47:33: 1 Gamma 0 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 0 0.0
+15:47:33: Document 1
+15:47:33: Initial gamma 1 [1.03845398 0.96643167 0.8659515 ]
+15:47:33: 0 Gamma 1 [0.67606233 1.1        0.52393767]
+15:47:33: 0 deltaGamma 1 0.27932460558490974
+15:47:33: 1 Gamma 1 [0.73650399 1.1        0.46349601]
+15:47:33: 1 deltaGamma 1 0.04029443593255407
+15:47:33: 2 Gamma 1 [0.83789503 1.1        0.36210497]
+15:47:33: 2 deltaGamma 1 0.0675940279230477
+15:47:33: 3 Gamma 1 [0.97886016 1.1        0.22113984]
+15:47:33: 3 deltaGamma 1 0.09397675273980609
+15:47:33: 4 Gamma 1 [1.08481374 1.1        0.11518626]
+15:47:33: 4 deltaGamma 1 0.07063572271160305
+15:47:33: 5 Gamma 1 [1.0998228 1.1       0.1001772]
+15:47:33: 5 deltaGamma 1 0.010006039581821113
+15:47:33: 6 Gamma 1 [1.09995377 1.1        0.10004623]
+15:47:33: 6 deltaGamma 1 8.731251566578002e-05
+15:47:33: Document 2
+15:47:33: Initial gamma 2 [0.97137914 1.03885711 1.17368025]
+15:47:33: 0 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 0 deltaGamma 2 0.6687340939326155
+15:47:33: 1 Gamma 2 [0.1 1.1 0.1]
+15:47:33: 1 deltaGamma 2 7.401486830834377e-17
+15:47:33: Sufficient Stats [[0.00000000e+00 0.00000000e+00 0.00000000e+00 9.99954386e-01]
+ [2.00000000e+00 1.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00 4.56141731e-05]]
+15:47:33: Normalized Gamma [[0.07692308 0.84615385 0.07692308]
+ [0.47824077 0.47826087 0.04349836]
+ [0.07692308 0.84615385 0.07692308]]
+15:47:33: Lambda before maximization [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda after maximization [[0.01       0.01       0.01       1.75996579]
+ [2.51       1.76       0.01       0.01      ]
+ [0.01       0.01       0.01       1.01003421]]
+15:47:33: Lambda after rounding [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Lambda [[0. 0. 0. 1.]
+ [1. 1. 0. 0.]
+ [0. 0. 0. 1.]]
+15:47:33: Elogbeta [[-inf -inf -inf   0.]
+ [ -1.  -1. -inf -inf]
+ [-inf -inf -inf   0.]]
+15:47:33: expElogbeta [[0.         0.         0.         1.        ]
+ [0.36787944 0.36787944 0.         0.        ]
+ [0.         0.         0.         1.        ]]
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:130: RuntimeWarning: invalid value encountered in subtract
+  phinorm[i] = np.log(sum(np.exp(temp - tmax))) + tmax # Phi for each word in document d
+15:47:33: E[log p(theta | alpha) - log q(theta | gamma)] = nan
+/Users/laurenmak/Dropbox/workspace/constrained_lda/constrained_lda/api.py:141: RuntimeWarning: invalid value encountered in double_scalars
+  topic_score = topic_score + np.sum(gammaln(self._lambda) - gammaln(self._eta))
+15:47:33: E[log p(beta | eta) - log q (beta | lambda)] = nan
+15:47:33: Logl: nan
+15:47:33: Finished inferring strains and composition, printing results

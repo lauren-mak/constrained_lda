@@ -3,6 +3,7 @@ from datetime import datetime
 import numpy as np
 from os.path import basename, join
 from scipy.special import gammaln, psi
+from sklearn.preprocessing import normalize
 
 def logger(i, d):
     if d: 
@@ -22,7 +23,7 @@ class OnlineLDA:
     Implements online VB for LDA as described in (Hoffman et al. 2010).
     """
 
-    def __init__(self, doc_word_file, num_topics, alpha, eta, kappa, gp_iters, gp_thresh, debug):
+    def __init__(self, doc_word_file, num_topics, alpha, eta, gp_iters, gp_thresh, debug):
         """
         Arguments:
         alpha: Hyperparameter for prior on weight vectors theta (document-topic distribution)
@@ -35,7 +36,6 @@ class OnlineLDA:
         self.num_docs = self.doc_word_df.shape[0] 
         self._alpha = float(alpha)
         self._eta = float(eta)
-        self._kappa = float(kappa)
 
         # Other runtime parameters:
         self.gp_iters = int(gp_iters)
@@ -59,7 +59,7 @@ class OnlineLDA:
         sstats = np.zeros(self._lambda.shape)
         # For each document d update that document's gamma and phi
         for d in range(0, self.num_docs):
-            logger('Document ' + str(d), self.debug)
+            logger(f'Document {d}', self.debug)
             cts = self.doc_word_df[d,:] # np.1darray of length self.num_topics
             gammad = gamma[d, :] # np.1darray of length self.num_topics
             Elogthetad = Elogtheta[d, :] # np.1darray of length self.num_topics
@@ -67,7 +67,7 @@ class OnlineLDA:
             expElogbetad = self._expElogbeta # np.2darray of self.num_docs x self.num_topics
             # The optimal phi_{dwk} is proportional to  expElogthetad_k * expElogbetad_w. phinorm is the normalizer.
             phinorm = np.dot(expElogthetad, expElogbetad) + 1e-100 # Dot product i.e.: sum product over the last axis of expElogbetad and expElogthetad
-            logger('Initial gamma ' + str(d) + ' ' + str(gammad), self.debug)
+            logger(f'Initial gamma {d} {gammad}', self.debug)
             # Iterate between gamma and phi until convergence
             for i in range(0, self.gp_iters):
                 lastgamma = gammad
@@ -79,8 +79,8 @@ class OnlineLDA:
                 phinorm = np.dot(expElogthetad, expElogbetad) + 1e-100
                 # Check threshold to see if gamma has converged. 
                 delta_gamma = np.mean(abs(gammad - lastgamma))
-                logger(str(i) + ' Gamma ' + str(d) + ' ' + str(gammad), self.debug)
-                logger(str(i) + ' deltaGamma ' + str(d) + ' ' + str(delta_gamma), self.debug)
+                logger(f'{i} Gamma {d} {gammad}', self.debug)
+                logger(f'{i} deltaGamma {d} {delta_gamma}', self.debug)
                 if (delta_gamma < self.gp_thresh):
                     break
             gamma[d, :] = gammad
@@ -90,22 +90,27 @@ class OnlineLDA:
         # This step finishes computing the sufficient statistics for the M step, so that...
         # sstats[k, w] = \sum_d n_{dw} * phi_{dwk} = \sum_d n_{dw} * exp{Elogtheta_{dk} + Elogbeta_{kw}} / phinorm_{dw}.
         sstats = sstats * self._expElogbeta
-        logger('Sstats ' + str(sstats), self.debug)
+        logger(f'Sufficient Stats {sstats}', self.debug)
+        gamma_row_norm = normalize(gamma, axis = 1, norm='l1')
+        logger(f'Normalized Gamma {gamma_row_norm}', self.debug)
 
-        return ((gamma, sstats))
+        return ((gamma_row_norm, sstats))
 
     def m_step(self, sstats):
         """
         M step: Update values of lambda and Elogbeta based on the summary statistics. 
         """
+        logger(f'Lambda before maximization {self._lambda}', self.debug)
         self._lambda = self._lambda + self._eta + self.num_docs * sstats / self.num_words
+        logger(f'Lambda after maximization {self._lambda}', self.debug)
+        self._lambda /= np.array([self._lambda.min(axis = 1)]).T # Scales each strain by the minimum variant weight in each row
+        logger(f'Lambda after scaling {self._lambda}', self.debug)
         self._Elogbeta = dirichlet_expectation(self._lambda)
         self._expElogbeta = np.exp(self._Elogbeta)
-        logger('Lambda ' + str(self._lambda), self.debug)
-        logger('Elogbeta ' + str(self._Elogbeta), self.debug)
-        logger('expElogbeta ' + str(self._expElogbeta), self.debug)
+        logger(f'Lambda {self._lambda}', self.debug)
+        logger(f'Elogbeta {self._Elogbeta}', self.debug)
+        logger(f'expElogbeta {self._expElogbeta}', self.debug)
         return 0
-        # TODO Add calculation of constrain weights here (since after updating lambda)
 
     def calc_likelihood(self, gamma):
         """
@@ -128,14 +133,14 @@ class OnlineLDA:
         doc_score += np.sum((self._alpha - gamma) * Elogtheta)
         doc_score += np.sum(gammaln(gamma) - gammaln(self._alpha))
         doc_score += sum(gammaln(self._alpha*self.num_topics) - gammaln(np.sum(gamma, 1)))
-        logger('E[log p(theta | alpha) - log q(theta | gamma)] = ' + str(doc_score), True)
+        logger(f'E[log p(theta | alpha) - log q(theta | gamma)] = {doc_score}', True)
 
-        topic_score = 0
         # E[log p(beta | eta) - log q (beta | lambda)]
-        topic_score = topic_score + np.sum((self._eta-self._lambda)*self._Elogbeta) 
-        topic_score = topic_score + np.sum(gammaln(self._lambda) - gammaln(self._eta))
-        topic_score = topic_score + np.sum(gammaln(self._eta*self.num_words) - gammaln(np.sum(self._lambda, 1)))
-        logger('E[log p(beta | eta) - log q (beta | lambda)] = ' + str(topic_score), True)
+        topic_score = np.sum((self._eta-self._lambda)*self._Elogbeta) 
+        topic_score += np.sum(gammaln(self._lambda) - gammaln(self._eta))
+        topic_score += np.sum(gammaln(self._eta*self.num_words) - gammaln(np.sum(self._lambda, 1)))
+        logger(f'E[log p(beta | eta) - log q (beta | lambda)] = {topic_score}', True)
+        # TODO Add calculation of constrain weights here (since after updating lambda)
         # TODO Add constraint weight term here 
 
         return(doc_score + topic_score)
@@ -153,6 +158,6 @@ class OnlineLDA:
         constraint_wts = self.m_step(sstats)
         # Estimate held-out likelihood for current values of lambda.
         logl = self.calc_likelihood(gamma)
-        logger('Logl: ' + str(logl), True)
+        logger(f'Logl: {logl}', True)
 
         return(gamma, logl)
