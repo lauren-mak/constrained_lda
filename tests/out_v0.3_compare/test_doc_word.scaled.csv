@@ -1,0 +1,350 @@
+Round 0
+Final log-likelihood: -118.56883750354359
+Lambda after transforming 
+[[1 1 1 0]
+ [1 0 0 1]
+ [0 0 0 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 1
+Final log-likelihood: -118.72175477589181
+Lambda after transforming 
+[[0 0 0 0]
+ [0 1 1 0]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 2
+Final log-likelihood: -121.27027030459081
+Lambda after transforming 
+[[0 1 1 0]
+ [1 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 3
+Final log-likelihood: -71.84201616930585
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 4
+Final log-likelihood: -91.08502067950428
+Lambda after transforming 
+[[1 0 1 1]
+ [0 1 1 0]
+ [0 0 0 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 5
+Final log-likelihood: -104.54894698113058
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 1 1]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 6
+Final log-likelihood: -120.70544735795423
+Lambda after transforming 
+[[1 0 0 1]
+ [0 0 0 0]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 7
+Final log-likelihood: -115.59677531182496
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 0 1]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 8
+Final log-likelihood: -115.84530877563559
+Lambda after transforming 
+[[1 0 0 1]
+ [1 1 1 0]
+ [0 0 0 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 9
+Final log-likelihood: -119.58712368120356
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 10
+Final log-likelihood: -107.64401155022797
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 0 1]
+ [1 0 1 0]]
+Correct reconstruction rate: 1.0
+Round 11
+Final log-likelihood: -87.923780774136
+Lambda after transforming 
+[[1 0 0 1]
+ [0 1 1 0]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 12
+Final log-likelihood: -120.67040578612543
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 13
+Final log-likelihood: -118.15287725679691
+Lambda after transforming 
+[[1 1 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 14
+Final log-likelihood: -115.33632881199708
+Lambda after transforming 
+[[1 1 1 0]
+ [1 0 0 1]
+ [0 0 0 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 15
+Final log-likelihood: -119.4153141184703
+Lambda after transforming 
+[[0 0 0 0]
+ [1 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 16
+Final log-likelihood: -102.80831365925553
+Lambda after transforming 
+[[1 0 0 1]
+ [0 1 1 0]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 17
+Final log-likelihood: -120.77915309672105
+Lambda after transforming 
+[[0 0 0 0]
+ [1 0 0 1]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 18
+Final log-likelihood: -119.59100423053636
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 19
+Final log-likelihood: -82.64146029552072
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 0 1]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 20
+Final log-likelihood: -107.44408216350786
+Lambda after transforming 
+[[1 0 0 1]
+ [1 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 21
+Final log-likelihood: -119.1120950756283
+Lambda after transforming 
+[[1 0 0 1]
+ [1 0 1 0]
+ [0 1 1 0]]
+Correct reconstruction rate: 1.0
+Round 22
+Final log-likelihood: -119.22733791790793
+Lambda after transforming 
+[[1 0 0 1]
+ [0 0 0 1]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 23
+Final log-likelihood: -118.54596866907269
+Lambda after transforming 
+[[0 0 0 0]
+ [0 1 1 0]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 24
+Final log-likelihood: -118.91983821209006
+Lambda after transforming 
+[[1 0 0 1]
+ [1 0 1 0]
+ [0 1 1 0]]
+Correct reconstruction rate: 1.0
+Round 25
+Final log-likelihood: -120.31665404273954
+Lambda after transforming 
+[[1 1 1 0]
+ [0 0 0 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 26
+Final log-likelihood: -117.48124706955002
+Lambda after transforming 
+[[0 1 0 0]
+ [1 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 27
+Final log-likelihood: -120.5992575436139
+Lambda after transforming 
+[[1 0 1 1]
+ [0 1 1 0]
+ [1 0 1 0]]
+Correct reconstruction rate: 0.6666666666666666
+Round 28
+Final log-likelihood: -118.74157734992822
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 1 1]
+ [0 0 0 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 29
+Final log-likelihood: -117.95901328705727
+Lambda after transforming 
+[[1 0 0 1]
+ [1 0 1 1]
+ [0 1 1 0]]
+Correct reconstruction rate: 0.6666666666666666
+Round 30
+Final log-likelihood: -122.44762185955987
+Lambda after transforming 
+[[1 0 1 1]
+ [0 1 1 0]
+ [0 1 1 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 31
+Final log-likelihood: -116.10794536926794
+Lambda after transforming 
+[[0 1 1 0]
+ [1 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 32
+Final log-likelihood: -119.63069365994714
+Lambda after transforming 
+[[1 0 0 1]
+ [0 1 1 0]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.6666666666666666
+Round 33
+Final log-likelihood: -119.36458467853004
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 34
+Final log-likelihood: -118.22936540813296
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 0 1]
+ [1 0 1 0]]
+Correct reconstruction rate: 1.0
+Round 35
+Final log-likelihood: -119.40645197599355
+Lambda after transforming 
+[[1 0 0 1]
+ [1 1 1 0]
+ [0 1 1 0]]
+Correct reconstruction rate: 0.6666666666666666
+Round 36
+Final log-likelihood: -119.03465916662265
+Lambda after transforming 
+[[0 1 1 0]
+ [0 0 0 0]
+ [1 0 1 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 37
+Final log-likelihood: -120.5546687660858
+Lambda after transforming 
+[[1 0 0 1]
+ [1 1 1 0]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 38
+Final log-likelihood: -122.92983307714755
+Lambda after transforming 
+[[1 1 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 39
+Final log-likelihood: -118.36216171019504
+Lambda after transforming 
+[[1 1 1 0]
+ [0 1 0 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.3333333333333333
+Round 40
+Final log-likelihood: -120.67262604698982
+Lambda after transforming 
+[[1 0 0 1]
+ [0 1 1 0]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.6666666666666666
+Round 41
+Final log-likelihood: -117.21240513064691
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 1 1]
+ [1 0 0 1]]
+Correct reconstruction rate: 0.6666666666666666
+Round 42
+Final log-likelihood: -68.40153171310205
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 43
+Final log-likelihood: -121.34740646181066
+Lambda after transforming 
+[[1 0 0 1]
+ [0 1 1 0]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.6666666666666666
+Round 44
+Final log-likelihood: -119.27298811139283
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 45
+Final log-likelihood: -119.09766239755805
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0
+Round 46
+Final log-likelihood: -119.60941405271282
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 0 1]
+ [1 0 1 0]]
+Correct reconstruction rate: 1.0
+Round 47
+Final log-likelihood: -119.86118247987619
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 0 1]
+ [1 0 1 0]]
+Correct reconstruction rate: 1.0
+Round 48
+Final log-likelihood: -118.42264064334694
+Lambda after transforming 
+[[0 1 1 0]
+ [1 0 1 1]
+ [1 1 1 0]]
+Correct reconstruction rate: 0.3333333333333333
+Round 49
+Final log-likelihood: -119.42650004042133
+Lambda after transforming 
+[[1 0 1 0]
+ [0 1 1 0]
+ [1 0 0 1]]
+Correct reconstruction rate: 1.0

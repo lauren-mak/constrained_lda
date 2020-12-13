@@ -1,9 +1,10 @@
 import click
 from datetime import datetime
+from math import factorial, inf
 import numpy as np
 from os.path import basename, join
 from scipy.special import gammaln, psi
-from sklearn.preprocessing import normalize
+from sklearn.preprocessing import normalize 
 
 def logger(i, d):
     if d: 
@@ -18,12 +19,51 @@ def dirichlet_expectation(alpha):
         return(psi(alpha) - psi(np.sum(alpha)))
     return(psi(alpha) - psi(np.sum(alpha, 1))[:, np.newaxis])
 
+def binom(n, k):
+    return factorial(n) // factorial(k) // factorial(n - k)
+
+def biallelic_constraints(two_word_mtx):
+    """
+    Converts two-word topic-word matrix into a biallelic linkage matrix
+    """
+    linkage_mtx = np.zeros((3, 2))
+    for row in two_word_mtx:
+        first_allele = row[0] > 0
+        secnd_allele = row[1] > 0 
+        if first_allele and secnd_allele:
+            linkage_mtx[0] += row
+        elif first_allele > 0:
+            linkage_mtx[1] += row
+        elif secnd_allele > 0:
+            linkage_mtx[2] += row
+    linkage_mtx /= np.array([linkage_mtx.min(axis = 1)]).T # Scales each strain by the minimum allele weight in each row
+    return linkage_mtx
+
+def make_biallelic_list(df):
+    """
+    Converts full topic-word matrix into a list of biallelic linkage matrices
+    """
+    biallelic_list = np.zeros((binom(self.num_words, 2), 3, 2))
+    for i in range(self.num_words):
+        for j in range(i, self.num_words):
+            biallelic_list[i + j - 1] = biallelic_constraints(df[:,(i,j)])
+    return biallelic_list
+
+def biallelic_distance(biallelic_lambda):
+    """ 
+    Sum of the Euclidean norms between the observed (constraints) and predicted (lambda) allelic pairs
+    """
+    score = 0
+    for i in range(len(biallelic_list)):
+        score += sum(np.linalg.norm(biallelic_lambda[i] - self.constraints[i], axis = 1))
+    return 1./score if score != 0.0 else -inf
+
 class OnlineLDA:
     """
-    Implements online VB for LDA as described in (Hoffman et al. 2010).
+    Implements online variational Bayes for LDA as described in (Hoffman et al. 2010).
     """
 
-    def __init__(self, doc_word_file, num_topics, alpha, eta, gp_iters, gp_thresh, debug):
+    def __init__(self, doc_word_file, constraint_file, num_topics, alpha, eta, gp_iters, gp_thresh, debug):
         """
         Arguments:
         alpha: Hyperparameter for prior on weight vectors theta (document-topic distribution)
@@ -31,6 +71,7 @@ class OnlineLDA:
         kappa: Learning rate: exponential decay rate---should be between (0.5, 1.0] to guarantee asymptotic convergence.
         """
         self.doc_word_df = np.genfromtxt(doc_word_file, delimiter = ',') # np.2darray of self.num_docs x self.num_topics
+        logger(f'Doc_word_df {self.doc_word_df}', debug)
         self.num_topics = int(num_topics)
         self.num_words = self.doc_word_df.shape[1]
         self.num_docs = self.doc_word_df.shape[0] 
@@ -43,9 +84,19 @@ class OnlineLDA:
         self.debug = debug
 
         # Initialize the variational distribution q(beta|lambda)
-        self._lambda = 1*np.random.gamma(100., 1./100., (self.num_topics, self.num_words))
+        self._lambda = 1*np.random.gamma(100., self._eta, (self.num_topics, self.num_words))
         self._Elogbeta = dirichlet_expectation(self._lambda)
         self._expElogbeta = np.exp(self._Elogbeta)
+        logger(f'Lambda {self._lambda}', debug)
+        logger(f'Elogbeta {self._Elogbeta}', debug)
+        logger(f'expElogbeta {self._expElogbeta}', debug)
+
+        # Store physical linkage information between variants.
+        self.constraints = None
+        if constraint_file:
+            logger(f'Loading physical linkage information from {constraint_file}')
+            constraint_mtx = np.genfromtxt(constraint_file, delimiter = ',')
+            self.constraints = make_biallelic_list(constraint_mtx)
 
     def e_step(self):
         """
@@ -56,10 +107,10 @@ class OnlineLDA:
         Elogtheta = dirichlet_expectation(gamma) # np.2darray of self.num_docs x self.num_topics
         expElogtheta = np.exp(Elogtheta)
 
-        sstats = np.zeros(self._lambda.shape)
+        sstats = np.zeros((self.num_topics, self.num_words))
         # For each document d update that document's gamma and phi
         for d in range(0, self.num_docs):
-            logger(f'Document {d}', self.debug)
+            # logger(f'Document {d}', self.debug)
             cts = self.doc_word_df[d,:] # np.1darray of length self.num_topics
             gammad = gamma[d, :] # np.1darray of length self.num_topics
             Elogthetad = Elogtheta[d, :] # np.1darray of length self.num_topics
@@ -67,7 +118,7 @@ class OnlineLDA:
             expElogbetad = self._expElogbeta # np.2darray of self.num_docs x self.num_topics
             # The optimal phi_{dwk} is proportional to  expElogthetad_k * expElogbetad_w. phinorm is the normalizer.
             phinorm = np.dot(expElogthetad, expElogbetad) + 1e-100 # Dot product i.e.: sum product over the last axis of expElogbetad and expElogthetad
-            logger(f'Initial gamma {d} {gammad}', self.debug)
+            # logger(f'Initial gamma {d} {gammad}', self.debug)
             # Iterate between gamma and phi until convergence
             for i in range(0, self.gp_iters):
                 lastgamma = gammad
@@ -79,8 +130,8 @@ class OnlineLDA:
                 phinorm = np.dot(expElogthetad, expElogbetad) + 1e-100
                 # Check threshold to see if gamma has converged. 
                 delta_gamma = np.mean(abs(gammad - lastgamma))
-                logger(f'{i} Gamma {d} {gammad}', self.debug)
-                logger(f'{i} deltaGamma {d} {delta_gamma}', self.debug)
+                # logger(f'{i} Gamma {d} {gammad}', self.debug)
+                # logger(f'{i} deltaGamma {d} {delta_gamma}', self.debug)
                 if (delta_gamma < self.gp_thresh):
                     break
             gamma[d, :] = gammad
@@ -90,9 +141,9 @@ class OnlineLDA:
         # This step finishes computing the sufficient statistics for the M step, so that...
         # sstats[k, w] = \sum_d n_{dw} * phi_{dwk} = \sum_d n_{dw} * exp{Elogtheta_{dk} + Elogbeta_{kw}} / phinorm_{dw}.
         sstats = sstats * self._expElogbeta
-        logger(f'Sufficient Stats {sstats}', self.debug)
+        logger(f'Sufficient Stats \n{sstats}', self.debug)
         gamma_row_norm = normalize(gamma, axis = 1, norm='l1')
-        logger(f'Normalized Gamma {gamma_row_norm}', self.debug)
+        logger(f'Normalized Gamma \n{gamma_row_norm}', self.debug)
 
         return ((gamma_row_norm, sstats))
 
@@ -100,16 +151,15 @@ class OnlineLDA:
         """
         M step: Update values of lambda and Elogbeta based on the summary statistics. 
         """
-        logger(f'Lambda before maximization {self._lambda}', self.debug)
-        self._lambda = self._lambda + self._eta + self.num_docs * sstats / self.num_words
-        logger(f'Lambda after maximization {self._lambda}', self.debug)
-        self._lambda /= np.array([self._lambda.min(axis = 1)]).T # Scales each strain by the minimum variant weight in each row
-        logger(f'Lambda after scaling {self._lambda}', self.debug)
+        logger(f'Lambda before maximization \n{self._lambda}', self.debug)
+        self._lambda = self._lambda * (self._eta + self.num_docs * sstats / self.num_words)
+        logger(f'Lambda after maximization \n{self._lambda}', self.debug)
+        # self._lambda /= np.array([self._lambda.min(axis = 1)]).T # Scales each strain by the minimum variant weight in each row
+        # logger(f'Lambda after scaling \n{self._lambda}', self.debug)
         self._Elogbeta = dirichlet_expectation(self._lambda)
         self._expElogbeta = np.exp(self._Elogbeta)
-        logger(f'Lambda {self._lambda}', self.debug)
-        logger(f'Elogbeta {self._Elogbeta}', self.debug)
-        logger(f'expElogbeta {self._expElogbeta}', self.debug)
+        logger(f'Elogbeta \n{self._Elogbeta}', self.debug)
+        logger(f'expElogbeta \n{self._expElogbeta}', self.debug)
         return 0
 
     def calc_likelihood(self, gamma):
@@ -140,10 +190,13 @@ class OnlineLDA:
         topic_score += np.sum(gammaln(self._lambda) - gammaln(self._eta))
         topic_score += np.sum(gammaln(self._eta*self.num_words) - gammaln(np.sum(self._lambda, 1)))
         logger(f'E[log p(beta | eta) - log q (beta | lambda)] = {topic_score}', True)
-        # TODO Add calculation of constrain weights here (since after updating lambda)
-        # TODO Add constraint weight term here 
+        total_score = (doc_score + topic_score) 
+        if self.constraints:
+            constraint_weight = biallelic_distance(make_biallelic_list(self._lambda))
+            logger(f'The predicted topic-word constraint weight is {constraint_weight}')
+            total_score *= constraint_weight
 
-        return(doc_score + topic_score)
+        return total_score
 
     def update_lambda(self):
         """
