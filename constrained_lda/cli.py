@@ -30,9 +30,7 @@ def constrained_lda(cfg, debug):
     runtime_params = config['runtime']
 
     # Make space for output files
-    outdir = default_params['outdir']
-    if not exists(outdir):
-        makedirs(outdir)
+    outdir = check_make(default_params['outdir'], '')
     infile = default_params['input']
     dir_prefix = join(outdir, prefix(infile))
 

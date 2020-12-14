@@ -1,0 +1,22 @@
+/Users/laurenmak/Programs/msdir/ms 16 1 -s 2 
+61552 6470 52946
+
+//
+segsites: 2
+positions: 0.2287 0.8297 
+10
+10
+10
+00
+01
+10
+10
+01
+10
+10
+00
+01
+10
+01
+10
+01

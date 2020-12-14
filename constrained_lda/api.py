@@ -2,7 +2,8 @@ import click
 from datetime import datetime
 from math import factorial, inf
 import numpy as np
-from os.path import basename, join
+from os.path import basename, dirname, join, exists
+from os import makedirs
 from scipy.special import gammaln, psi
 from sklearn.preprocessing import normalize 
 
@@ -10,6 +11,12 @@ def logger(i, d):
     if d: 
         print_string = f'{datetime.now().strftime("%H:%M:%S")}: {i}'
         click.echo(print_string, err=True)
+
+def check_make(directory, subdir):
+    outdir = join(output, subdir)
+    if not exists(outdir):
+        makedirs(outdir)
+    return outdir
 
 def dirichlet_expectation(alpha):
     """
