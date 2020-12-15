@@ -3,7 +3,7 @@ import luigi
 from os.path import basename, dirname, join, exists
 from os import makedirs
 import pandas as pd
-from random import shuffle
+from random import randint, shuffle
 import subprocess
 import time
 
@@ -26,12 +26,13 @@ def make_dict_from_list(lst):
 
 
 # numvar.train-test.k_eta.attempt.mtx-type.csv
-def make_inputs(unique_strains, counts, num_samples_per_dataset, strains_per_sample, prefix, gs_dir, input_dir):
+def make_inputs(unique_strains, counts, strains_per_sample, prefix, gs_dir, input_dir):
     all_strains = []
     for i, s in enumerate(unique_strains):
         if counts[i] > 0:
             all_strains += [s] * int(counts[i])
-    split_strains = [all_strains[i:i + strains_per_sample] for x in range(0, len(all_strains), strains_per_sample)]
+    shuffle(all_strains)
+    split_strains = [all_strains[i:i + strains_per_sample] for i in range(0, len(all_strains), strains_per_sample)]
     pools_to_strains_lst = []
     for i, l in enumerate(split_strains):
         pool_dict = make_dict_from_list(l)
@@ -42,20 +43,27 @@ def make_inputs(unique_strains, counts, num_samples_per_dataset, strains_per_sam
     pool_strains = list(doc_topic_mtx.columns.values)
     strains_to_alleles_lst = []
     for s in pool_strains:
-        strains_to_alleles_lst.append([char for char in s])
+        strains_to_alleles_lst.append([int(char) for char in s])
     topic_wrd_mtx = pd.DataFrame(strains_to_alleles_lst, index = pool_strains) # gs_dir
     doc_word_mtx = doc_topic_ct_mtx.dot(topic_wrd_mtx) # input_dir
-    
     doc_topic_mtx.to_csv(join(gs_dir, prefix + '.doc_topic.csv'), index = False, header = False)
     topic_wrd_mtx.to_csv(join(gs_dir, prefix + '.topic_wrd.csv'), index = False, header = False)
-    doc_word_mtx.to_csv(join(input_dir, prefix + '.doc_word.csv'), index = False, header = False)
+    doc_word_mtx.astype(int).to_csv(join(input_dir, prefix + '.doc_word.csv'), index = False, header = False)
 
 
-def split_train_test(ms_out, test_ratio):
+def split_train_test(ms_out, test_ratio, num_variants):
     # Make lists of the unique strains and how many in total
     with open(ms_out, 'r') as m:
         all_strains = [line.rstrip() for line in m]
-    strain_ct_dict = make_dict_from_list(all_strains[6:]) # Skip header
+    strain_ct_dict = make_dict_from_list(all_strains[7:]) # Skip header
+    zero_strain = '0' * num_variants
+    if zero_strain in strain_ct_dict:
+        print('Correcting a strain completely comprised of 0s')
+        zero_alleles = ['0'] * num_variants
+        zero_alleles[randint(0, num_variants - 1)] = '1'
+        new_zero_strain = ''.join(zero_alleles)
+        strain_ct_dict[new_zero_strain] = strain_ct_dict.get(new_zero_strain, 0) + strain_ct_dict[zero_strain]
+        del strain_ct_dict[zero_strain]
     unique_strains = list(strain_ct_dict.keys())
     total_counts = list(strain_ct_dict.values())
 
@@ -64,8 +72,8 @@ def split_train_test(ms_out, test_ratio):
     train_counts = []
     for i in range(len(unique_strains)):
         train_counts.append(total_counts[i] - test_counts[i])
-    num_test_strains = len(all_strains[6:]) * test_ratio
-    difference = num_test_strains - len(test_counts)
+    num_test_strains = len(all_strains[7:]) * test_ratio
+    difference = int(num_test_strains) - sum(test_counts)
     if difference > 0:
         max_idx = train_counts.index(max(train_counts))
         train_counts[max_idx] -= difference
@@ -80,9 +88,8 @@ def split_train_test(ms_out, test_ratio):
 class Make_Single_Dataset(luigi.Task):
     idx = luigi.Parameter()
     num_variants = luigi.Parameter()
-    num_train_datasets = luigi.IntParameter()
-    num_test_datasets = luigi.IntParameter()
-    num_samples_per_dataset = luigi.IntParameter()
+    num_train_samples = luigi.IntParameter()
+    num_test_samples = luigi.IntParameter()
     num_strains_per_sample = luigi.IntParameter()
     master_dir = luigi.Parameter()
 
@@ -98,15 +105,15 @@ class Make_Single_Dataset(luigi.Task):
 
     def run(self):
         ms_out = join(self.gs_dir, self.num_variants + '.' + self.idx + '.txt')
-        num_total_datasets = self.num_train_datasets + self.num_test_datasets
-        num_total_strains = num_total_datasets * self.num_samples_per_dataset * self.num_strains_per_sample
+        num_total_datasets = self.num_train_samples + self.num_test_samples
+        num_total_strains = num_total_datasets * self.num_strains_per_sample
         with open(ms_out, 'w') as mout: 
-            subprocess.Popen(['/Users/laurenmak/Programs/msdir/ms', str(num_total_strains), '1', '-s', self.num_variants], stdout=mout)
-        test_ratio = float(self.num_test_datasets) / num_total_datasets
-        time.sleep(1) # Needed so that ms output is saved before it is opened again
-        unique_strains, train_counts, test_counts = split_train_test(ms_out, test_ratio)
-        make_inputs(unique_strains, train_counts, self.num_samples_per_dataset, self.num_strains_per_sample, self.num_variants + '.train.' + self.idx, self.gs_dir, self.input_dir)
-        make_inputs(unique_strains, test_counts, self.num_samples_per_dataset, self.num_strains_per_sample, self.num_variants + '.test.' + self.idx, self.gs_dir, self.input_dir)
+            subprocess.Popen(['/Users/laurenmak/Programs/msdir/ms', str(num_total_strains), '1', '-s', self.num_variants, '-t', '0.000001'], stdout=mout)
+        test_ratio = float(self.num_test_samples) / num_total_datasets
+        time.sleep(0.5) # Needed so that ms output is saved before it is opened again
+        unique_strains, train_counts, test_counts = split_train_test(ms_out, test_ratio, int(self.num_variants))
+        make_inputs(unique_strains, train_counts, self.num_strains_per_sample, self.num_variants + '.train.' + self.idx, self.gs_dir, self.input_dir)
+        make_inputs(unique_strains, test_counts, self.num_strains_per_sample, self.num_variants + '.test.' + self.idx, self.gs_dir, self.input_dir)
         with self.output().open('w') as out_csv:
             out_csv.write(f'{self.num_variants},{self.idx},{len(unique_strains)}')
 

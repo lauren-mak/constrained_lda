@@ -79,15 +79,15 @@ class OnlineLDA:
         """
         self.doc_word_df = np.genfromtxt(doc_word_file, delimiter = ',') # np.2darray of self.num_docs x self.num_topics
         logger(f'Doc_word_df {self.doc_word_df}', debug)
-        self.num_topics = int(num_topics)
+        self.num_topics = num_topics
         self.num_words = self.doc_word_df.shape[1]
         self.num_docs = self.doc_word_df.shape[0] 
-        self._alpha = float(alpha)
-        self._eta = float(eta)
+        self._alpha = alpha
+        self._eta = eta
 
         # Other runtime parameters:
-        self.gp_iters = int(gp_iters)
-        self.gp_thresh = float(gp_thresh)
+        self.gp_iters = gp_iters
+        self.gp_thresh = gp_thresh
         self.debug = debug
 
         # Initialize the variational distribution q(beta|lambda)
