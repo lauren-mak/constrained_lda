@@ -1,0 +1,46 @@
+/usr/local/lib/python3.7/site-packages/luigi/parameter.py:284: UserWarning: Parameter "task_process_context" with value "None" is not of type string.
+  warnings.warn('Parameter "{}" with value "{}" is not of type string.'.format(param_name, param_value))
+INFO: Informed scheduler that task   LDA_For_Strains_10_0_01_0_05_10_20_cc5d3f5e43   has status   PENDING
+INFO: Done scheduling tasks
+INFO: Running Worker with 1 processes
+INFO: [pid 50304] Worker Worker(salt=600775272, workers=1, host=MAC204477, username=laurenmak, pid=50304) running   LDA_For_Strains(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets, k_values=10,20, eta_values=0.01,0.05)
+Traceback (most recent call last):
+  File "/Users/laurenmak/Dropbox/workspace/constrained_lda/support/eval_compositions.py", line 122, in <module>
+    main()
+  File "/usr/local/lib/python3.7/site-packages/click/core.py", line 829, in __call__
+    return self.main(*args, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/click/core.py", line 782, in main
+    rv = self.invoke(ctx)
+  File "/usr/local/lib/python3.7/site-packages/click/core.py", line 1259, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/usr/local/lib/python3.7/site-packages/click/core.py", line 1066, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/usr/local/lib/python3.7/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/Users/laurenmak/Dropbox/workspace/constrained_lda/support/eval_compositions.py", line 106, in eval_compositions
+    mcc_lst, crr_lst, jsd_lst = make_summary_stats(actual_prefix, predict_prefix, k, e, int(num_tests), float(threshold)) 
+  File "/Users/laurenmak/Dropbox/workspace/constrained_lda/support/eval_compositions.py", line 56, in make_summary_stats
+    mcc, closest_to_actual, crr = calculate_mcc(test_actual_prefix + '.topic_wrd.csv', test_predict_prefix + '.topic_wrd.csv', threshold)
+  File "/Users/laurenmak/Dropbox/workspace/constrained_lda/support/eval_compositions.py", line 16, in calculate_mcc
+    predicted_alleles = np.genfromtxt(predicted_file, delimiter = ',')
+  File "/usr/local/lib/python3.7/site-packages/numpy/lib/npyio.py", line 1759, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/usr/local/lib/python3.7/site-packages/numpy/lib/_datasource.py", line 269, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/usr/local/lib/python3.7/site-packages/numpy/lib/_datasource.py", line 623, in open
+    raise IOError("%s not found." % path)
+OSError: /Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets/output/10.train.0.10_0.01.topic_wrd.csv not found.
+INFO: [pid 50304] Worker Worker(salt=600775272, workers=1, host=MAC204477, username=laurenmak, pid=50304) done      LDA_For_Strains(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets, k_values=10,20, eta_values=0.01,0.05)
+INFO: Informed scheduler that task   LDA_For_Strains_10_0_01_0_05_10_20_cc5d3f5e43   has status   DONE
+INFO: Worker Worker(salt=600775272, workers=1, host=MAC204477, username=laurenmak, pid=50304) was stopped. Shutting down Keep-Alive thread
+INFO: 
+===== Luigi Execution Summary =====
+
+Scheduled 1 tasks of which:
+* 1 ran successfully:
+    - 1 LDA_For_Strains(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets, k_values=10,20, eta_values=0.01,0.05)
+
+This progress looks :) because there were no failed tasks or missing dependencies
+
+===== Luigi Execution Summary =====
+

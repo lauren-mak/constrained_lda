@@ -15,39 +15,36 @@ def main():
     pass
 
 
-@main.command('model_application')
+@main.command('lda_application')
 @click.argument('doc_word_file') 
 @click.argument('topic_word_file') # *.raw_tw.csv
 @click.argument('main_dir')
-@click.argument('k', type = click.INT)
-@click.argument('eta', type = click.FLOAT, default = 0.01)
-def model_application(doc_word_file, topic_word_file, main_dir, k, eta):
+def lda_application(doc_word_file, topic_word_file, main_dir):
     outdir = check_make(main_dir, 'output')
-    dir_prefix = join(outdir, prefix(doc_word_file) + '.' + str(k) + '_' + str(eta)) # numvar.train-test.attempt.k_eta 
+    dir_prefix = join(outdir, prefix(doc_word_file)) # numvar.train-test.attempt.k_eta 
     test_doc_wrd = np.genfromtxt(doc_word_file, delimiter = ',')
     train_top_wrd = np.genfromtxt(topic_word_file, delimiter = ',')
-    test_doc_top = np.linalg.solve(a, b)
-    np.savetxt(dir_prefix + '.doc_topic.csv', best_gamma, fmt='%.5f', delimiter=',', newline='\n', header='')
+    test_doc_top = np.linalg.solve(train_top_wrd, test_doc_wrd)
+    np.savetxt(dir_prefix + '.doc_topic.csv', test_doc_top, fmt='%.5f', delimiter=',', newline='\n', header='')
     transformed_lambda = np.where(train_top_wrd < 0.01, 0, 1)
     np.savetxt(dir_prefix + '.topic_wrd.csv', transformed_lambda, fmt='%.5f', delimiter=',', newline='\n', header='')
 
 
 @main.command('constrained_lda')
 @click.argument('infile')
-@click.argument('main_dir')
+@click.argument('outdir')
 @click.argument('k', type = click.INT)
+@click.argument('eta', type = click.FLOAT)
 @click.argument('rounds', type = click.INT, default = 10)
 @click.argument('iterations', type = click.INT, default = 100)
 @click.argument('gp_iters', type = click.INT, default = 10)
 @click.argument('gp_thresh', type = click.FLOAT, default = 0.001)
 @click.argument('alpha', type = click.FLOAT, default = 0.1)
-@click.argument('eta', type = click.FLOAT, default = 0.01)
 @click.option('-c', '--constraints', type = click.File(), help='Constraint file')
 @click.option('--debug', flag_value=True)
-def constrained_lda(infile, main_dir, k, rounds, iterations, gp_iters, gp_thresh, alpha, eta, constraints, debug):
+def constrained_lda(infile, outdir, k, rounds, iterations, gp_iters, gp_thresh, alpha, eta, constraints, debug):
 
     # Make space for output files
-    outdir = check_make(main_dir, 'output')
     dir_prefix = join(outdir, prefix(infile) + '.' + str(k) + '_' + str(eta)) # numvar.train-test.attempt.k_eta
 
     best_logl = inf

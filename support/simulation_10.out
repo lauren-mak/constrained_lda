@@ -1,52 +1,52 @@
 /usr/local/lib/python3.7/site-packages/luigi/parameter.py:284: UserWarning: Parameter "task_process_context" with value "None" is not of type string.
   warnings.warn('Parameter "{}" with value "{}" is not of type string.'.format(param_name, param_value))
 INFO: Informed scheduler that task   Generate_Strain_Datasets_10__Users_laurenmak_10_7d3905620a   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_9__Users_laurenmak_5_a1334d4f5a   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_8__Users_laurenmak_5_3be5bbdf7d   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_7__Users_laurenmak_5_af679dcb61   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_6__Users_laurenmak_5_0c555115f3   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_5__Users_laurenmak_5_7d2fd74fc2   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_4__Users_laurenmak_5_cd874b0e14   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_3__Users_laurenmak_5_6fd2d6a0b3   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_2__Users_laurenmak_5_021bd8e332   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_1__Users_laurenmak_5_cbe6922c4c   has status   PENDING
-INFO: Informed scheduler that task   Make_Single_Dataset_0__Users_laurenmak_5_0071da62d3   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_9__Users_laurenmak_5_cfa903a8e0   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_8__Users_laurenmak_5_9b1fecccf0   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_7__Users_laurenmak_5_48e56824d8   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_6__Users_laurenmak_5_f890e4d5cd   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_5__Users_laurenmak_5_4570963cee   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_4__Users_laurenmak_5_1837c72ab8   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_3__Users_laurenmak_5_11038d13b6   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_2__Users_laurenmak_5_1368f875a0   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_1__Users_laurenmak_5_6ef73df176   has status   PENDING
+INFO: Informed scheduler that task   Make_Single_Dataset_0__Users_laurenmak_5_e0797eda44   has status   PENDING
 INFO: Done scheduling tasks
 INFO: Running Worker with 1 processes
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=5, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=5, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_5__Users_laurenmak_5_7d2fd74fc2   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=3, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=3, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_3__Users_laurenmak_5_6fd2d6a0b3   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=6, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=6, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_6__Users_laurenmak_5_0c555115f3   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=1, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=1, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_1__Users_laurenmak_5_cbe6922c4c   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=7, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=7, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_7__Users_laurenmak_5_af679dcb61   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=9, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=9, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_9__Users_laurenmak_5_a1334d4f5a   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=2, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=2, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_2__Users_laurenmak_5_021bd8e332   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=4, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=4, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_4__Users_laurenmak_5_cd874b0e14   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=8, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=8, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_8__Users_laurenmak_5_3be5bbdf7d   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Make_Single_Dataset(idx=0, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Make_Single_Dataset(idx=0, num_variants=10, num_train_samples=15, num_test_samples=5, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: Informed scheduler that task   Make_Single_Dataset_0__Users_laurenmak_5_0071da62d3   has status   DONE
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) running   Generate_Strain_Datasets(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
-INFO: [pid 9517] Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) done      Generate_Strain_Datasets(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=3, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=3, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_3__Users_laurenmak_5_11038d13b6   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=1, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=1, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_1__Users_laurenmak_5_6ef73df176   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=4, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=4, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_4__Users_laurenmak_5_1837c72ab8   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=6, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=6, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_6__Users_laurenmak_5_f890e4d5cd   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=7, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=7, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_7__Users_laurenmak_5_48e56824d8   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=0, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=0, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_0__Users_laurenmak_5_e0797eda44   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=2, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=2, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_2__Users_laurenmak_5_1368f875a0   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=5, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=5, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_5__Users_laurenmak_5_4570963cee   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=8, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=8, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_8__Users_laurenmak_5_9b1fecccf0   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Make_Single_Dataset(idx=9, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Make_Single_Dataset(idx=9, num_variants=10, num_train_samples=20, num_test_samples=0, num_strains_per_sample=5, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: Informed scheduler that task   Make_Single_Dataset_9__Users_laurenmak_5_cfa903a8e0   has status   DONE
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) running   Generate_Strain_Datasets(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
+INFO: [pid 49554] Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) done      Generate_Strain_Datasets(attempts=10, num_variants=10, master_dir=/Users/laurenmak/Dropbox/workspace/constrained_lda/sim_datasets)
 INFO: Informed scheduler that task   Generate_Strain_Datasets_10__Users_laurenmak_10_7d3905620a   has status   DONE
-INFO: Worker Worker(salt=157675411, workers=1, host=MAC204477, username=laurenmak, pid=9517) was stopped. Shutting down Keep-Alive thread
+INFO: Worker Worker(salt=179688383, workers=1, host=MAC204477, username=laurenmak, pid=49554) was stopped. Shutting down Keep-Alive thread
 INFO: 
 ===== Luigi Execution Summary =====
 
@@ -59,6 +59,7 @@ This progress looks :) because there were no failed tasks or missing dependencie
 
 ===== Luigi Execution Summary =====
 
+Correcting a strain completely comprised of 0s
 Correcting a strain completely comprised of 0s
 Correcting a strain completely comprised of 0s
 Correcting a strain completely comprised of 0s

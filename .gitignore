@@ -34,3 +34,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Datasets
+sim_datasets/*
+tests/*
+hoffman_deprecated/*

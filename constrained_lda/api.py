@@ -13,7 +13,7 @@ def logger(i, d):
         click.echo(print_string, err=True)
 
 def check_make(directory, subdir):
-    outdir = join(output, subdir)
+    outdir = join(directory, subdir)
     if not exists(outdir):
         makedirs(outdir)
     return outdir
@@ -182,7 +182,7 @@ class OnlineLDA:
             cts = self.doc_word_df[d,:] # np.1darray of length self.self.num_words
             phinorm = np.zeros(self.num_words) # np.1darray of length self.num_words
             for i in range(0, self.num_words):
-                temp = Elogtheta[d, :] + self._Elogbeta[:,d]
+                temp = Elogtheta[d, :] + self._Elogbeta[:,i]
                 tmax = max(temp)
                 phinorm[i] = np.log(sum(np.exp(temp - tmax))) + tmax # Phi for each word in document d
             doc_score += np.sum(cts * phinorm) # Dot product? 
@@ -190,13 +190,13 @@ class OnlineLDA:
         doc_score += np.sum((self._alpha - gamma) * Elogtheta)
         doc_score += np.sum(gammaln(gamma) - gammaln(self._alpha))
         doc_score += sum(gammaln(self._alpha*self.num_topics) - gammaln(np.sum(gamma, 1)))
-        logger(f'E[log p(theta | alpha) - log q(theta | gamma)] = {doc_score}', True)
+        logger(f'E[log p(theta | alpha) - log q(theta | gamma)] = {doc_score}', self.debug)
 
         # E[log p(beta | eta) - log q (beta | lambda)]
         topic_score = np.sum((self._eta-self._lambda)*self._Elogbeta) 
         topic_score += np.sum(gammaln(self._lambda) - gammaln(self._eta))
         topic_score += np.sum(gammaln(self._eta*self.num_words) - gammaln(np.sum(self._lambda, 1)))
-        logger(f'E[log p(beta | eta) - log q (beta | lambda)] = {topic_score}', True)
+        logger(f'E[log p(beta | eta) - log q (beta | lambda)] = {topic_score}', self.debug)
         total_score = (doc_score + topic_score) 
         if self.constraints:
             constraint_weight = biallelic_distance(make_biallelic_list(self._lambda))
@@ -218,6 +218,6 @@ class OnlineLDA:
         constraint_wts = self.m_step(sstats)
         # Estimate held-out likelihood for current values of lambda.
         logl = self.calc_likelihood(gamma)
-        logger(f'Logl: {logl}', True)
+        logger(f'Logl: {logl}', self.debug)
 
         return(gamma, logl)

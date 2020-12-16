@@ -113,7 +113,7 @@ class Make_Single_Dataset(luigi.Task):
         time.sleep(0.5) # Needed so that ms output is saved before it is opened again
         unique_strains, train_counts, test_counts = split_train_test(ms_out, test_ratio, int(self.num_variants))
         make_inputs(unique_strains, train_counts, self.num_strains_per_sample, self.num_variants + '.train.' + self.idx, self.gs_dir, self.input_dir)
-        make_inputs(unique_strains, test_counts, self.num_strains_per_sample, self.num_variants + '.test.' + self.idx, self.gs_dir, self.input_dir)
+        # make_inputs(unique_strains, test_counts, self.num_strains_per_sample, self.num_variants + '.test.' + self.idx, self.gs_dir, self.input_dir)
         with self.output().open('w') as out_csv:
             out_csv.write(f'{self.num_variants},{self.idx},{len(unique_strains)}')
 
